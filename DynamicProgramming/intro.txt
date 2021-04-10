@@ -1,0 +1,81 @@
+DP: Enhanced Recursion
+
+n
+| \
+n-1 n-2
+|\  |\
+
+How to identify Recursion and hence DP:  
+DP asks for something Optimal
+1. Choice: Whether to include or not. For eg: element in Knapsack can be included or excluded, so recursion,
+   if recursion has overlapping problem, then it's DP (Recursion with two funciton calls)
+2. Optimal: min, max, largest
+
+Approach:
+1. Write a recursive solution
+2. Memoization or Top-down
+3. Bottom-up or iterative
+
+DP has lot of parent based questions, like similar questions with multiple variants.
+1. 0-1 Knapsack problem (6 variants) like subset sum, Equal sum partition, count the no. of subset, target sum problem, minimum subset difference
+2. Unbounded Knapsack (5) 
+3. Fibonacci (7)
+4. LCS (15)
+5. LIS - Longest  Increasing Subsequence(10)
+6. Kadane's Algorithm (6)
+7. Matrix chain multiplication (7)
+8. DP on Trees (4)
+9. DP on Grid (14)
+10. Others (5)
+
+
+0-1 KNAPSACK PROBLEM:
+1. Subset Sum
+2. Equal sum partition
+3. Count of subset sum
+4. Minimum Subset sum difference
+5. Target sum
+6. Number of subset of given difference
+
+KnapSack problem:
+1. Fractional knapsack -- Greedy, DP not required
+2. 0-1 Knapsack -- either use or omit the item
+3. Unbounded Knapsack -- same item can be resued
+
+Knapsack Problem description: 
+- We have list of items I1,I2,I3,I4
+- given weight[1,3,4,5] for each item
+- given value[1,4,5,7] for each item
+- given capacity weight W = 7
+- O/P: Max profit
+
+Solution Approach:  
+** Recursion: because of choice that you can either include the item in knap-sack or not
+    -- So, create a choice diagram (very helpfule to write recursive code)
+                I1, w1
+            /      \
+            w1 <= W    w1 > W     <---- Choice diagram
+            / \        |
+            Yes  No     No
+
+    - Base condition in recursion:  
+    - Avoid running recursion with some i/p value
+    - THINK of the SMALLEST VALID I/P for the recursion
+
+    int knapsack(int w[], int v[], int W, int n) {
+        //base condition
+        if(n == 0 || W == 0) {
+            return 0;
+        }
+
+        // Choice diagram
+        if(w[n-1] <= W)
+            return max(value[n-1] + knapsack(w, v, W - w[n-1], n-1), knapsack(w,v,W, n-1));
+        else
+            return knapsack(w,v,W, n-1);
+    }
+
+** Memoization:
+- For 2D array, the size is determined by looking at the values which are changing in the recursion function.
+- W and n are the changing values
+A = Array(12).fill(0).map(()=>Array(81).fill(0))
